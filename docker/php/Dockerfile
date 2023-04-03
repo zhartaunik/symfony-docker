@@ -15,8 +15,7 @@ RUN apt-get update && apt-get install -y \
     && pecl install apcu
 
 # Install Xdebug
-ARG XDEBUG_VERSION=3.1.2
-RUN pecl install xdebug-$XDEBUG_VERSION \
+RUN pecl install xdebug \
   && docker-php-ext-enable xdebug
 
 # Composer installation
