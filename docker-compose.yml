@@ -1,28 +1,33 @@
-version: '3.8'
+version: '3.9'
 
 services:
   php:
+    container_name: php
     build:
-      context: .
-      dockerfile: docker/php/Dockerfile
+      context: ./docker/php/
     volumes:
       - ./symfony:/var/www/html
     environment:
       - APP_ENV=${APP_ENV}
       - APP_SECRET=${APP_SECRET}
       - DATABASE_URL=mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@mysql:3306/${MYSQL_DATABASE}
+    env_file:
+      - ./.env
+    user: "${USER_ID}:${GROUP_ID}"
 
   nginx:
+    container_name: nginx
     build:
-      context: .
-      dockerfile: docker/nginx/Dockerfile
+      context: ./docker/nginx/
     ports:
       - "80:80"
     depends_on:
       - php
 
   mysql:
-    image: mysql:8.0
+    container_name: mysql
+    build:
+      context: ./docker/mysql/
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}

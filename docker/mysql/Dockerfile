@@ -1,5 +1,3 @@
-FROM mysql:latest
+FROM mysql:8.0
 
-ENV MYSQL_ROOT_PASSWORD=secret
-
-COPY docker/mysql/init/init.sql /docker-entrypoint-initdb.d/
+COPY ./init/init.sql /docker-entrypoint-initdb.d/
