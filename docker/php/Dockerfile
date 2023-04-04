@@ -35,6 +35,10 @@ RUN curl -sS https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh -o setu
     && apt-get install -y symfony-cli \
     && rm setup.deb.sh
 
+# install node.js
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
+RUN apt-get install -y nodejs
+
 # Copy php.ini base configuration
 ADD ./ini/php.ini $PHP_INI_DIR/conf.d/php.ini
 RUN chmod -R +rw $PHP_INI_DIR/conf.d
