@@ -8,10 +8,17 @@ RUN apt-get update && apt-get install -y \
         libonig-dev \
         libpng-dev \
         libjpeg-dev \
+        libxslt-dev \
         libfreetype6-dev \
         unzip \
+        git \
+        sudo \
+        iputils-ping \
+        vim \
+        telnet \
+        procps \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) gd pdo_mysql zip intl mbstring opcache \
+    && docker-php-ext-install -j$(nproc) intl pdo_pgsql pdo_mysql xsl gd zip mbstring opcache \
     && pecl install apcu
 
 # Install Xdebug
