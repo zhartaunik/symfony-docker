@@ -21,6 +21,13 @@ RUN pecl install xdebug \
 # Composer installation
 COPY --from=composer:2.3 /usr/bin/composer /usr/local/bin/composer
 
+# Install Symfony CLI
+RUN curl -sS https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh -o setup.deb.sh \
+    && chmod +x setup.deb.sh \
+    && ./setup.deb.sh \
+    && apt-get install -y symfony-cli \
+    && rm setup.deb.sh
+
 # Copy php.ini base configuration
 ADD ./ini/php.ini $PHP_INI_DIR/conf.d/php.ini
 RUN chmod -R +rw $PHP_INI_DIR/conf.d
